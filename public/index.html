@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dataset Management</title>
+        <link rel="stylesheet" type="text/css" href="/style.css">
+      </head>      
+<body>
+    <header>
+        <h1>Dataset List</h1>
+        <p>Explore and download datasets for analysis</p>
+    </header>      
+
+  <div class="container">
+    <ul class="dataset-list" id="datasetList">
+      <!-- Dataset items will be dynamically added here -->
+    </ul>
+  </div>
+
+  <footer style="background-color: #153B76; color: white; text-align: center; padding: 10px;">
+    &copy; 2024 DataHub. All rights reserved.
+  </footer>
+
+  <script>
+    // Fetch and display the list of datasets
+    fetch('/datasets')
+      .then(response => response.json())
+      .then(datasets => {
+        const datasetList = document.getElementById('datasetList');
+
+        datasets.forEach(dataset => {
+          const listItem = document.createElement('li');
+          listItem.innerHTML = `
+            <h2>${dataset.name}</h2>
+            <p>${dataset.description}</p>
+            <a href="/download?file=${dataset.file}" download>Download</a>
+          `;
+          datasetList.appendChild(listItem);
+        });
+      });
+  </script>
+
+</body>
+</html>
